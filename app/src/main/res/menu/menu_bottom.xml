@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/item0"
-        android:title="menu_dashboard"
-        android:icon="@drawable/icon"/>
+        android:title="Dashboard"
+        android:icon="@drawable/dashboard"/>
     <item
-        android:title="menu_dashboard"
-        android:icon="@drawable/icon"/>
-    <item
-        android:title="menu_dashboard"
-        android:icon="@drawable/icon"/>
-    <item
-        android:title="menu_dashboard"
-        android:icon="@drawable/icon"/>
+        android:title="Setting"
+        android:icon="@drawable/setting"/>
+<!--    <item-->
+<!--        android:title="menu_dashboard"-->
+<!--        android:icon="@drawable/icon"/>-->
+<!--    <item-->
+<!--        android:title="menu_dashboard"-->
+<!--        android:icon="@drawable/icon"/>-->
 
 
 </menu>
