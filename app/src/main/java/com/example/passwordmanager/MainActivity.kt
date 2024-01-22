@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.passwordmanager.Screen.AddPassword
+import com.example.passwordmanager.fragment.AddSection
 import com.example.passwordmanager.fragment.Dashboard_fragment
 import com.example.passwordmanager.fragment.SettingFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             Intent(this,AddPassword::class.java).also {
                 startActivity(it)
             }
+//            AddSection().display(supportFragmentManager)
         }
     }
     fun changefragment(fragname:Fragment){

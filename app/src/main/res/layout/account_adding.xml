@@ -42,7 +42,9 @@
                 android:layout_gravity="center"
                 android:textColorHint="@color/black"
                 app:boxStrokeErrorColor="#F40000"
+                app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="@dimen/_2sdp"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="#070707">
@@ -63,7 +65,9 @@
                 android:layout_gravity="center"
                 android:textColorHint="@color/black"
                 app:boxStrokeErrorColor="#F40000"
+                app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="@dimen/_2sdp"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="#070707">
@@ -84,7 +88,9 @@
                 android:layout_gravity="center"
                 android:textColorHint="@color/black"
                 app:boxStrokeErrorColor="#F40000"
+                app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="@dimen/_2sdp"
                 app:expandedHintEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:hintTextColor="#070707">

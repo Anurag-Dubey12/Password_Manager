@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#9D9D9D"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 <LinearLayout
@@ -33,7 +32,6 @@
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:backgroundColor="#2196F3"
         app:corners="all"
         app:duration="@integer/material_motion_duration_long_2"
         app:cornerRadius="@dimen/_30sdp"
@@ -41,8 +39,8 @@
         app:iconSize="@dimen/_15sdp"
         app:iconTint="#626262"
         app:textSize="@dimen/_10sdp"
-        app:textColor="@color/black"
-        app:indicatorColor="#E6E0E0"
+        app:textColor="@color/white"
+        app:indicatorColor="#040303"
         app:indicatorRadius="@dimen/_15sdp"
         app:menu="@menu/menu_bottom" />
 </LinearLayout>
