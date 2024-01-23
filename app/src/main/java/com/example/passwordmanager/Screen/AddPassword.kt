@@ -44,6 +44,21 @@ class AddPassword : AppCompatActivity() {
         websitelayout.setOnClickListener {
             com.example.passwordmanager.fragment.Website().display(supportFragmentManager)
         }
+        appLayout.setOnClickListener {
+            com.example.passwordmanager.fragment.App().display(supportFragmentManager)
+        }
+        othersLayout.setOnClickListener {
+            com.example.passwordmanager.fragment.Others().display(supportFragmentManager)
+        }
+        bankCardLayout.setOnClickListener {
+            com.example.passwordmanager.fragment.Bank_Card().display(supportFragmentManager)
+        }
+        addressLayout.setOnClickListener {
+            com.example.passwordmanager.fragment.Address().display(supportFragmentManager)
+        }
+        othersLayout.setOnClickListener {
+            com.example.passwordmanager.fragment.Others().display(supportFragmentManager)
+        }
         accountLayout.setOnClickListener {
             if(accountOptionsLayout.visibility== View.GONE){
                 accountOptionsLayout.visibility=View.VISIBLE
