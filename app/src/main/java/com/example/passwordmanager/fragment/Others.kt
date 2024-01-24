@@ -50,7 +50,6 @@ class Others : DialogFragment() {
         toolbar.setOnMenuItemClickListener {
             dismiss()
             true
-
         }
     }
 }

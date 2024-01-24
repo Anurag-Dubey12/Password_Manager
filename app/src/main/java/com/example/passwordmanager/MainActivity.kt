@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 //            AddSection().display(supportFragmentManager)
         }
     }
+
     fun changefragment(fragname:Fragment){
         val fragmentManager=supportFragmentManager
         val fragmentTransaction=fragmentManager.beginTransaction()

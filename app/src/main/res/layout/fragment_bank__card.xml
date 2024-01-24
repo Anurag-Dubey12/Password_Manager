@@ -92,6 +92,7 @@
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
+            android:id="@+id/card_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scan A Card"
