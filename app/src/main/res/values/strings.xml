@@ -2,4 +2,21 @@
     <string name="app_name">Password Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup_now">
+SignUp Now
+</string>
+    <string name="username">Username</string>
+    <string name="or_login_wi">
+Or login with
+</string>
+    <string name="login_now">
+Login Now
+</string>
+    <string name="don_t_have_account">Don\u2019t have an account ?</string>
+    <string name="SafeSwift">SafeSwift
+</string>
+    <string name="lets_start">Securely manage your passwords with ease</string>
+
+
+
 </resources>

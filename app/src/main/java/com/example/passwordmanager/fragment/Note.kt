@@ -1,60 +1,70 @@
 package com.example.passwordmanager.fragment
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.example.passwordmanager.R
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Note.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Note : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+class Note : DialogFragment() {
+    private val TAG="Note_Dialog"
+    private lateinit var toolbar: MaterialToolbar
+    private lateinit var Notes_Name: TextInputEditText
+    private lateinit var Notes_text: TextInputEditText
+    fun display(fragmentManager: FragmentManager):Note{
+        val note=Note()
+        if(fragmentManager!=null){
+            note.show(fragmentManager,TAG)
         }
+        return note
     }
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note, container, false)
+        val view=inflater.inflate(R.layout.fragment_note, container, false)
+        toolbar=view.findViewById(R.id.appBarLayout)
+        Notes_Name = view.findViewById(R.id.Note_name_field)
+        Notes_text = view.findViewById(R.id.Note_text_field)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Note.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Note().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL,com.example.passwordmanager.R.style.AppTheme_FullScreenDialog)
     }
+    override fun onStart() {
+        super.onStart()
+        val dialog: Dialog?=dialog
+        dialog?.let {
+            val width=ViewGroup.LayoutParams.FILL_PARENT
+            val height=ViewGroup.LayoutParams.FILL_PARENT
+            it.window?.setLayout(width,height)
+            it.window?.attributes?.windowAnimations=R.style.AppTheme_Slide
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        toolbar.setNavigationOnClickListener { dismiss() }
+        toolbar.setOnMenuItemClickListener {
+            dismiss()
+            true
+        }
+    }
+
 }

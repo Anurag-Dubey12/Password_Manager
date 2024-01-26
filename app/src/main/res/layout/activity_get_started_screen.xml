@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAE392"
+    tools:context=".auth.GetStartedScreen">
+
+    <TextView
+        android:id="@+id/talkdm"
+        android:layout_width="172dp"
+        android:layout_height="88dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="88dp"
+        android:fontFamily="@font/hurricane_regular"
+        android:gravity="top"
+        android:text="@string/SafeSwift"
+        android:textAppearance="@style/SafeSwift"
+        android:textSize="@dimen/_40sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="382dp"
+        android:layout_height="226dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/talkdm"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/getting_started_screen"/>
+
+    <TextView
+        android:id="@+id/intro"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
+        android:text="@string/lets_start"
+        android:textSize="@dimen/_15sdp"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/let_s_talk_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/get_started"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="13dp"
+        android:backgroundTint="#1A5D1A"
+        android:text="Get Started"
+        android:textColor="#F1C93B"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intro" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.passwordmanager" />
+                  <option name="mobileSdkAppId" value="1:774539897377:android:a23d56ed6d8714c8f79160" />
+                  <option name="projectId" value="password-manager-da8e7" />
+                  <option name="projectNumber" value="774539897377" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

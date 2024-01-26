@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.Data_Class.Website
 import com.example.passwordmanager.R
+import com.example.passwordmanager.fragment.Note
 import com.google.android.material.appbar.MaterialToolbar
 
 class AddPassword : AppCompatActivity() {
@@ -60,13 +62,30 @@ class AddPassword : AppCompatActivity() {
             com.example.passwordmanager.fragment.Others().display(supportFragmentManager)
         }
         accountLayout.setOnClickListener {
-            if(accountOptionsLayout.visibility== View.GONE){
-                accountOptionsLayout.visibility=View.VISIBLE
-            }
-            else{
-                accountOptionsLayout.visibility=View.GONE
+            if(accountOptionsLayout.visibility == View.GONE) {
+                accountOptionsLayout.alpha = 0f
+                accountOptionsLayout.translationY = -accountOptionsLayout.height.toFloat()
+                accountOptionsLayout.visibility = View.VISIBLE
+                accountOptionsLayout.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(500)
+                    .setListener(null)
+            } else {
+                accountOptionsLayout.animate()
+                    .alpha(0f)
+                    .translationY(-accountOptionsLayout.height.toFloat())
+                    .setDuration(500)
+                    .withEndAction {
+                        accountOptionsLayout.visibility = View.GONE
+                    }
             }
         }
+        noteLayout.setOnClickListener {
+            Note().display(supportFragmentManager)
+        }
+
+
     }
 
 
