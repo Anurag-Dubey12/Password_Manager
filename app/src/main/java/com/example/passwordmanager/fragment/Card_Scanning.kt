@@ -132,33 +132,33 @@ class Card_Scanning : DialogFragment() {
         dateTextView.text = "${card.expirationMonth}/${card.expirationYear}"
     }
 
-//    @SuppressLint("UnsafeOptInUsageError")
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == CAMERA_PERMISSION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//            GlobalScope.launch(Dispatchers.IO) {
-//                try {
-//                    val cameraProvider = getCameraProvider()
-//                    bindUseCases(cameraProvider!!)
-//                } catch (e: Exception) {
-//                    // Handle exceptions
-//                    e.printStackTrace()
-//                }
-//            }
-//        }
-//    }
+    @SuppressLint("UnsafeOptInUsageError")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            GlobalScope.launch(Dispatchers.IO) {
+                try {
+                    val cameraProvider = getCameraProvider()
+                    bindUseCases(cameraProvider!!)
+                } catch (e: Exception) {
+                    // Handle exceptions
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
 
-//    private suspend fun getCameraProvider(): ProcessCameraProvider =
-//        suspendCancellableCoroutine { continuation ->
-//            ProcessCameraProvider.getInstance(requireContext()).apply {
-//                addListener(Runnable {
-//                    continuation.resume(get())
-//                }, ContextCompat.getMainExecutor(requireContext()))
-//            }
-//        }
+    private suspend fun getCameraProvider(): ProcessCameraProvider =
+        suspendCancellableCoroutine { continuation ->
+            ProcessCameraProvider.getInstance(requireContext()).apply {
+                addListener(Runnable {
+                    continuation.resume(get())
+                }, ContextCompat.getMainExecutor(requireContext()))
+            }
+        }
 
 }
