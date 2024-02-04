@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.passwordmanager.Data_Class.Website
 import com.example.passwordmanager.R
 import com.example.passwordmanager.fragment.Note
 import com.google.android.material.appbar.MaterialToolbar

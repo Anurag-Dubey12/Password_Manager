@@ -9,7 +9,6 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.passwordmanager.Data_Class.Website
 import com.example.passwordmanager.R
 import com.google.android.material.textfield.TextInputEditText
 

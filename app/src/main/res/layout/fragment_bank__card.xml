@@ -9,7 +9,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appBarLayout"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
@@ -42,9 +41,11 @@
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
+            app:boxStrokeColor="#10ED00"
             app:boxStrokeWidth="1dp"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
@@ -73,10 +74,12 @@
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -104,40 +107,49 @@
             android:layout_marginRight="@dimen/_10sdp"
             />
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Card_Type_layout"
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_gravity="center"
+            app:boxStrokeColor="#10ED00"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            android:hint="Card Type"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Card_Type_field"
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginBottom="10dp"
-                android:hint="Card Type"
-                android:inputType="number"
-                android:paddingStart="10dp"
-                android:textColorHint="@color/black"
-                tools:ignore="RtlSymmetry" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Card_Type_field"
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="number"
+                    android:enabled="false"
+                    android:text="Not Selected"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
+            app:boxStrokeColor="#10ED00"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeWidth="1dp"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/card_holder_feild"
                 android:layout_width="@dimen/_300sdp"
@@ -154,8 +166,10 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -166,7 +180,6 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="10dp"
                 android:hint="Valid Through"
-                android:enabled="false"
                 android:inputType="number"
                 android:paddingStart="10dp"
                 android:textColorHint="@color/black"
@@ -178,8 +191,10 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -190,7 +205,6 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="10dp"
                 android:hint="CVC2/CVV2"
-                android:enabled="false"
                 android:inputType="numberPassword"
                 android:maxLength="8"
                 android:paddingStart="10dp"
@@ -203,8 +217,10 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -215,7 +231,6 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="10dp"
                 android:hint="PIN"
-                android:enabled="false"
                 android:inputType="numberPassword"
                 android:maxLength="8"
                 android:paddingStart="10dp"
@@ -237,7 +252,9 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -257,9 +274,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -278,10 +297,12 @@
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -292,6 +313,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginBottom="10dp"
                 android:hint="Card Color "
+                android:enabled="false"
                 android:paddingStart="10dp"
                 android:textColorHint="@color/black"
                 tools:ignore="RtlSymmetry" />
@@ -301,9 +323,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">

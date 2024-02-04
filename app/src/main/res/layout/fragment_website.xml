@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,78 +13,135 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#808080"
-        app:navigationIcon="@drawable/cross"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Website"
         app:menu="@menu/menuoption"
-        app:titleTextColor="@color/black"
-        app:titleCentered="true"
-        />
+        app:navigationIcon="@drawable/cross"
+        app:titleTextColor="@color/black" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.032">
-        <com.google.android.material.textfield.TextInputLayout
+        app:layout_constraintVertical_bias="0.076">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeErrorColor="#F40000"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="@dimen/_2sdp"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="#070707">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Web_address_value"
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Web Address"
+                    android:paddingStart="10dp"
+                    android:textColorHint="@color/black"
+                    tools:ignore="RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeErrorColor="#F40000"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="@dimen/_2sdp"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:hintTextColor="#070707">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/Name_value"
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Name"
+                    android:paddingStart="10dp"
+                    android:textColorHint="@color/black"
+                    tools:ignore="RtlSymmetry" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/account_adding_layout"
+                layout="@layout/account_adding"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#C8C2C2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/add_More_account_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/add_More_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_100sdp"
+                android:background="#C8C2C2"
+                android:src="@drawable/add_layout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="One More Account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/outlined_button"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColorHint="@color/black"
-            app:boxStrokeErrorColor="#F40000"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidth="1dp"
-            app:boxStrokeWidthFocused="@dimen/_2sdp"
-            app:expandedHintEnabled="true"
-            app:hintAnimationEnabled="true"
-            app:hintTextColor="#070707">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Web_address_value"
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:hint="Web Address"
-                android:paddingStart="10dp"
-                android:textColorHint="@color/black"
-                tools:ignore="RtlSymmetry" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="@dimen/_300sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColorHint="@color/black"
-            app:boxStrokeErrorColor="#F40000"
-            app:boxStrokeColor="@color/black"
-            app:boxStrokeWidthFocused="@dimen/_2sdp"
-            app:boxStrokeWidth="1dp"
-            app:expandedHintEnabled="true"
-            app:hintAnimationEnabled="true"
-            app:hintTextColor="#070707">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Name_value"
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginBottom="10dp"
-                android:hint="Name"
-                android:paddingStart="10dp"
-                android:textColorHint="@color/black"
-                tools:ignore="RtlSymmetry" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <include
-            android:id="@+id/account_adding_layout"
-            layout="@layout/account_adding"/>
-    </LinearLayout>
-
+            android:layout_below="@id/add_More_account_layout"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:backgroundTint="@color/white"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_15sdp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="@dimen/_1sdp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
