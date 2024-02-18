@@ -1,60 +1,159 @@
 package com.example.passwordmanager.fragment
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.example.passwordmanager.R
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
+import java.io.InputStream
+import java.util.Date
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Document.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Document : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+class Document : DialogFragment() {
+    private lateinit var toolbar:MaterialToolbar
+    private lateinit var selected_img:ImageView
+    private lateinit var docname:TextInputEditText
+    private lateinit var submitdoc:MaterialButton
+    private lateinit var doc_comment:TextInputEditText
+    private lateinit var byteArrayvalue: ByteArray
+    private val uid=FirebaseAuth.getInstance().currentUser?.uid
+    val TAG="Document_Dialog"
+    fun display(fragmentManager: FragmentManager):Document{
+        val doc=Document()
+        if(fragmentManager!=null){
+            doc.show(fragmentManager,TAG)
         }
+        return doc
     }
+    private val storage = FirebaseStorage.getInstance()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_document, container, false)
+        val view= inflater.inflate(R.layout.fragment_document, container, false)
+        toolbar=view.findViewById(R.id.appBarLayout)
+        docname=view.findViewById(R.id.Doc_file_Name)
+        submitdoc=view.findViewById(R.id.submitdoc)
+        doc_comment=view.findViewById(R.id.doc_comment)
+        selected_img=view.findViewById(R.id.selected_image)
+        return view
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL,com.example.passwordmanager.R.style.AppTheme_FullScreenDialog)
+    }
+    override fun onStart() {
+        super.onStart()
+        val dialog: Dialog?=dialog
+        dialog?.let {
+            val width=ViewGroup.LayoutParams.FILL_PARENT
+            val height=ViewGroup.LayoutParams.FILL_PARENT
+            it.window?.setLayout(width,height)
+            it.window?.attributes?.windowAnimations= com.example.passwordmanager.R.style.AppTheme_Slide
+        }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checksdk(requireContext()) {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "*/*"
+            fileAccess.launch(intent)
+        }
+        submitdoc.setOnClickListener {
+            val name=docname.text.toString()
+            val comment=doc_comment.text.toString()
+            uploadFile(byteArrayvalue, name, comment, uid.toString())
+            dismiss()
+        }
+        toolbar.setNavigationOnClickListener { dismiss() }
+//        toolbar.setOnMenuItemClickListener {
+//            dismiss()
+//            true
+//        }
+    }
+    fun checksdk(context: Context,call:() -> Unit){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            if(ActivityCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                ==PackageManager.PERMISSION_GRANTED){
+                call.invoke()
+            }else{
+                requestPermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Document.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Document().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            it?.let {
+                if (it) {
+                    Toast.makeText(requireContext(),"permission granted",Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    private val fileAccess =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result->
+            if(result.resultCode==Activity.RESULT_OK){
+                result?.data?.data?.let {uri->
+                    val inputStream = requireContext().contentResolver.openInputStream(uri)
+                    inputStream?.readBytes()?.let { byteArray ->
+                        selected_img.setImageURI(uri)
+                        byteArrayvalue=byteArray
+                        Log.d("byte","The byte array value is $byteArrayvalue")
+                    }
+                }
+            }
+        }
+    fun uploadFile(byteArray: ByteArray, fileName: String, comment: String,uid:String) {
+        val storageRef = storage.reference
+        val storageRef2 = storageRef.child("files/$fileName")
+
+        val metadata = StorageMetadata.Builder()
+            .setCustomMetadata("comment", comment)
+            .setCustomMetadata("name", fileName)
+            .setCustomMetadata("uid",uid)
+            .build()
+        storageRef2.putBytes(byteArray, metadata)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "File uploaded successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to upload file", Toast.LENGTH_SHORT).show()
+            }
+            .addOnCompleteListener {
+                // Handle completion if needed
+            }
+
     }
 }

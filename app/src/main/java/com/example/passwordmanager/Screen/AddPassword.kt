@@ -1,15 +1,23 @@
 package com.example.passwordmanager.Screen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
+import com.example.passwordmanager.fragment.Document
 import com.example.passwordmanager.fragment.Note
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -60,6 +68,9 @@ class AddPassword : AppCompatActivity() {
         othersLayout.setOnClickListener {
             com.example.passwordmanager.fragment.Others().display(supportFragmentManager)
         }
+        documentLayout.setOnClickListener {
+            Document().display(supportFragmentManager)
+        }
         accountLayout.setOnClickListener {
             if(accountOptionsLayout.visibility == View.GONE) {
                 accountOptionsLayout.alpha = 0f
@@ -83,9 +94,25 @@ class AddPassword : AppCompatActivity() {
         noteLayout.setOnClickListener {
             Note().display(supportFragmentManager)
         }
-
-
     }
-
-
+    fun checksdk(context: Context, call:() -> Unit){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            if(ActivityCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED){
+                call.invoke()
+            }else{
+                requestPermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
+    }
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            it?.let {
+                if (it) {
+                    Toast.makeText(this,"permission granted", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 }

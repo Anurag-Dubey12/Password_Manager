@@ -2,17 +2,24 @@ package com.example.passwordmanager.fragment
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Display
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.ImageView
+import android.widget.NumberPicker
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -29,6 +36,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Calendar
+
 
 class Bank_Card : DialogFragment() {
     private  val CAMERA_PERMISSION = 7762
@@ -41,13 +50,15 @@ class Bank_Card : DialogFragment() {
     private lateinit var cardPinField: TextInputEditText
     private lateinit var cardTypeIcon: ImageView
     private lateinit var cardScan: TextView
+    private lateinit var cardColorLayout: TextInputLayout
     private lateinit var cardIssuerField: TextInputEditText
     private lateinit var cardCustomerServiceField: TextInputEditText
     private lateinit var cardColorField: TextInputEditText
     private lateinit var cardCommentField: TextInputEditText
     private lateinit var  cardTypeLayout : TextInputLayout
-
+    private lateinit var selectedColorView: View
     private val TAG="Bank_Card"
+    private  lateinit var colortext:String
     private lateinit var toolbar: MaterialToolbar
     fun display(fragmentManager: FragmentManager):Bank_Card?{
         val bank_card=Bank_Card()
@@ -56,6 +67,7 @@ class Bank_Card : DialogFragment() {
         }
         return bank_card
     }
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +83,7 @@ class Bank_Card : DialogFragment() {
         cardHolderField = view.findViewById(R.id.card_holder_feild)
         cardValidField = view.findViewById(R.id.Card_valid_field)
         cardCvvField = view.findViewById(R.id.Card_CVV_Field)
+        cardColorLayout = view.findViewById(R.id.Card_Color_Layout)
         cardPinField = view.findViewById(R.id.Card_Pin_Field)
         cardScan = view.findViewById(R.id.card_scan)
         cardIssuerField = view.findViewById(R.id.Card_Issuer_Field)
@@ -113,12 +126,46 @@ class Bank_Card : DialogFragment() {
                 }
             }
         })
+        cardValidField.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) return
+                val text = s.toString()
+                if (s?.length == 2 && text.last() != '/') {
+                    cardValidField.setText("$text/")
+                    cardValidField.setSelection(text.length + 1)
+                }else if(s?.length!! <=2 && text.last() != '/'){
+
+                }
+            }
+
+        })
+
+        cardColorField.setOnClickListener {
+            showColorOption()
+        }
         toolbar.setNavigationOnClickListener { dismiss() }
         toolbar.setOnMenuItemClickListener {menuitem->
             when(menuitem.itemId){
                 R.id.action_save->{
-//                    SaveData()
+                    val nameValueText = nameValue.text.toString()
+                    val cardNumberText = cardNumberField.text.toString()
+                    val cardTypeText = cardTypeField.text.toString()
+                    val cardHolderText = cardHolderField.text.toString()
+                    val cardValidText = cardValidField.text.toString()
+                    val cardCvvText = cardCvvField.text.toString()
+                    val cardPinText = cardPinField.text.toString()
+                    val cardIssuerText = cardIssuerField.text.toString()
+                    val cardCustomerServiceText = cardCustomerServiceField.text.toString()
+//                    val cardColorText = cardColorField.text.toString()/
+                    val cardCommentText = cardCommentField.text.toString()
+                    SaveData(nameValueText,cardNumberText,cardTypeText,cardHolderText,cardValidText
+                        ,cardCvvText,cardPinText,cardIssuerText,cardCustomerServiceText,colortext,cardCommentText)
                 }
             }
             dismiss()
@@ -138,6 +185,27 @@ class Bank_Card : DialogFragment() {
             }
 
         }
+    }
+    private fun showColorOption() {
+        val popupMenu = PopupMenu(requireContext(), cardColorField)
+        popupMenu.menuInflater.inflate(R.menu.colormenu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
+            when (menuItem.itemId) {
+                R.id.color_option_1 -> setColor(Color.RED, "Red")
+                R.id.color_option_2 -> setColor(Color.GREEN, "Green")
+                R.id.color_option_3 -> setColor(Color.BLUE, "Blue")
+                R.id.color_option_4 -> setColor(Color.YELLOW, "Yellow")
+                R.id.color_option_5 -> setColor(Color.MAGENTA, "Magenta")
+            }
+            true
+        }
+        popupMenu.show()
+    }
+
+    private fun setColor(color: Int, colorText: String) {
+        cardColorLayout.boxBackgroundColor = color
+        colortext = colorText
+        cardColorField.setText(colorText)
     }
     private fun getDrawableCardType(cardType: String): Int? {
         return when(cardType){

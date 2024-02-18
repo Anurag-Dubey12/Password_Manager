@@ -38,6 +38,8 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#10ED00"
             app:boxStrokeWidth="1dp"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
@@ -62,6 +64,8 @@
             android:textColorHint="@color/black"
             app:boxStrokeErrorColor="#F40000"
             app:boxStrokeWidth="1dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#10ED00"
             app:expandedHintEnabled="true"
             app:hintAnimationEnabled="true"
             app:hintTextColor="#070707">
@@ -71,7 +75,7 @@
                 android:layout_width="@dimen/_300sdp"
                 android:layout_height="@dimen/_80sdp"
                 android:layout_marginBottom="10dp"
-                android:hint="Enter Text Here"
+                android:hint="Comment"
                 android:paddingStart="10dp"
                 android:textColorHint="@color/black"
                 tools:ignore="RtlSymmetry" />
