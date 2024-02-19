@@ -95,24 +95,4 @@ class AddPassword : AppCompatActivity() {
             Note().display(supportFragmentManager)
         }
     }
-    fun checksdk(context: Context, call:() -> Unit){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            if(ActivityCompat.checkSelfPermission(
-                    context,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED){
-                call.invoke()
-            }else{
-                requestPermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        }
-    }
-    private val requestPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            it?.let {
-                if (it) {
-                    Toast.makeText(this,"permission granted", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
 }

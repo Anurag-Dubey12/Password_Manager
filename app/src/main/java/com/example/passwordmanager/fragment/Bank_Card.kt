@@ -268,7 +268,7 @@ class Bank_Card : DialogFragment() {
                          CustomerPhone:String,cardColor:String,comment:String){
         val firestore= FirebaseFirestore.getInstance()
         val user = FirebaseAuth.getInstance().currentUser
-        val uid = user?.uid
+        val uid=FirebaseAuth.getInstance().uid.toString()
         if(cardNumber.isEmpty()){
             cardNumberField.error="Enter A Longer Card Number"
         }
@@ -279,9 +279,10 @@ class Bank_Card : DialogFragment() {
                 cardholder,validThrough,cvc,pin,
                 cardIssuer,CustomerPhone,cardColor,comment
             )
-            firestore.collection("Bank_Card")
-                .document(FirebaseAuth.getInstance().uid.toString())
-                .collection("BankCardList")
+            firestore.collection(uid)
+//                .document(FirebaseAuth.getInstance().uid.toString())
+                .document("Data")
+                .collection("BankCard")
                 .add(card)
                 .addOnSuccessListener {documentref->
                     val newdocid=documentref.id

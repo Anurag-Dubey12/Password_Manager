@@ -80,6 +80,20 @@
                 android:textColorHint="@color/black"
                 tools:ignore="RtlSymmetry" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submitnote"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:strokeColor="@color/black"
+            app:strokeWidth="@dimen/_1sdp"
+            app:cornerRadius="@dimen/_15sdp"
+            android:layout_gravity="center"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

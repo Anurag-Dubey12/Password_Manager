@@ -95,6 +95,14 @@ class Document : DialogFragment() {
             uploadFile(byteArrayvalue, name, comment, uid.toString())
             dismiss()
         }
+        selected_img.setOnClickListener {
+            checksdk(requireContext()) {
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "*/*"
+                fileAccess.launch(intent)
+            }
+        }
         toolbar.setNavigationOnClickListener { dismiss() }
 //        toolbar.setOnMenuItemClickListener {
 //            dismiss()
@@ -133,6 +141,9 @@ class Document : DialogFragment() {
                         Log.d("byte","The byte array value is $byteArrayvalue")
                     }
                 }
+
+            }else{
+                dismiss()
             }
         }
     fun uploadFile(byteArray: ByteArray, fileName: String, comment: String,uid:String) {

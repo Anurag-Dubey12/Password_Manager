@@ -95,6 +95,7 @@ class Website : DialogFragment(){
                     val password=passwordvalue.text.toString()
                     val comment=commentEditText.text.toString()
                     SaveData(web,name,login,password,comment)
+                    dismiss()
                 }
             }
             true
@@ -112,8 +113,7 @@ class Website : DialogFragment(){
             Toast.makeText(requireContext(),"Enter all required details",Toast.LENGTH_SHORT).show()
         }
         else{
-            val user = FirebaseAuth.getInstance().currentUser
-            val uid = user?.uid
+            val uid=FirebaseAuth.getInstance().uid.toString()
             Log.d("Uid","The current user uid is:$uid")
             val web= WebsiteData(
                 null,
@@ -123,9 +123,9 @@ class Website : DialogFragment(){
                 Password,
                 comment,
             )
-            firestore.collection("WEBSITE")
-                .document(FirebaseAuth.getInstance().uid.toString())
-                .collection("WebsiteList")
+            firestore.collection(uid)
+                .document("Data")
+                .collection("Website")
                 .add(web)
                 .addOnSuccessListener {documentref->
                     val newdocid=documentref.id
@@ -137,26 +137,4 @@ class Website : DialogFragment(){
                 }
         }
     }
-//    private fun addAccountAddingLayout() {
-//        val inflater = LayoutInflater.from(requireContext())
-//        val accountAddingLayout =
-//            inflater.inflate(R.layout.account_adding, parentLinearLayout, false) as ConstraintLayout
-//
-//        // Set unique IDs for newly added views
-//        accountAddingLayout.id = View.generateViewId()
-//        loginvalue.id = View.generateViewId()
-//        passwordvalue.id = View.generateViewId()
-//        generatePassword.id = View.generateViewId()
-//
-//        // Add the new layout below the existing ones
-//        val params = LinearLayout.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-//        params.topMargin = resources.getDimensionPixelSize(R.dimen._10sdp) // Set your desired top margin
-//        accountAddingLayout.layoutParams = params
-//
-//        parentLinearLayout.addView(accountAddingLayout)
-//    }
-
 }
