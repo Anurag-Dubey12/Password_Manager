@@ -7,10 +7,10 @@
 <!--        android:icon="@android:drawable/ic_search_category_default"-->
 <!--        app:showAsAction="collapseActionView|ifRoom"-->
 <!--        app:actionViewClass="androidx.appcompat.widget.SearchView" />-->
-    <item
-        android:id="@+id/action_add"
-        android:title="Add More"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/action_add"-->
+<!--        android:title="Add More"-->
+<!--        app:showAsAction="always" />-->
     <item
         android:id="@+id/action_save"
         android:title="save"

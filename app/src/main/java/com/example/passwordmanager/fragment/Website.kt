@@ -21,6 +21,7 @@ import com.example.passwordmanager.Adapter.AccountAdapter
 import com.example.passwordmanager.Data_Class.WebsiteData
 import com.example.passwordmanager.R
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -79,15 +80,25 @@ class Website : DialogFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        passwordvalue.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus){
+                generatePassword.visibility=View.VISIBLE
+            }
+            else{
+                generatePassword.visibility=View.GONE
+            }
+        }
+        generatePassword.setOnClickListener{
+            ShowPasswordLayout()
+        }
         toolbar.setNavigationOnClickListener { dismiss() }
         toolbar.title = "Website"
         toolbar.setOnMenuItemClickListener(){menuitem->
             when(menuitem.itemId){
-                R.id.action_add->{
-                    addAccountAddingLayout()
-
-                }
+//                R.id.action_add->{
+//                    addAccountAddingLayout()
+//
+//                }
                 R.id.action_save->{
                     val web=webAddressvalue.text.toString()
                     val name=namevalue.text.toString()
@@ -100,6 +111,15 @@ class Website : DialogFragment(){
             }
             true
         }
+    }
+    private fun ShowPasswordLayout(){
+        val builder=MaterialAlertDialogBuilder(requireContext())
+        val inflater = LayoutInflater.from(requireContext())
+        val dialogView = inflater.inflate(R.layout.generate_password, null)
+        builder.setView(dialogView)
+        builder.setTitle("Password Generator")
+        val dialog = builder.create()
+        dialog.show()
     }
     private fun addAccountAddingLayout() {
         val inflater = LayoutInflater.from(requireContext())
@@ -124,7 +144,7 @@ class Website : DialogFragment(){
                 comment,
             )
             firestore.collection(uid)
-                .document("Data")
+                .document("User_Data")
                 .collection("Website")
                 .add(web)
                 .addOnSuccessListener {documentref->

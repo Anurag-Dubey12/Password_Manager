@@ -92,7 +92,7 @@ class Note : DialogFragment() {
             )
             firestore.collection(uid)
 //                .document(FirebaseAuth.getInstance().uid.toString())
-                .document("Data")
+                .document("User_Data")
                 .collection("Notes")
                 .add(note)
                 .addOnSuccessListener {docref->

@@ -118,6 +118,7 @@ class Document : DialogFragment() {
                 call.invoke()
             }else{
                 requestPermission.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                dismiss()
             }
         }
     }

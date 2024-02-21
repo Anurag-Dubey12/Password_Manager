@@ -65,9 +65,6 @@ class AddPassword : AppCompatActivity() {
         addressLayout.setOnClickListener {
             com.example.passwordmanager.fragment.Address().display(supportFragmentManager)
         }
-        othersLayout.setOnClickListener {
-            com.example.passwordmanager.fragment.Others().display(supportFragmentManager)
-        }
         documentLayout.setOnClickListener {
             Document().display(supportFragmentManager)
         }
