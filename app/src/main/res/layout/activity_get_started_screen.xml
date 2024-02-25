@@ -9,14 +9,14 @@
 
     <TextView
         android:id="@+id/talkdm"
-        android:layout_width="172dp"
+        android:layout_width="@dimen/_172sdp"
         android:layout_height="88dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="88dp"
         android:fontFamily="@font/hurricane_regular"
         android:gravity="top"
-        android:text="@string/SafeSwift"
+        android:text="@string/PassGuard"
         android:textAppearance="@style/SafeSwift"
         android:textSize="@dimen/_40sdp"
         android:textStyle="bold"

@@ -283,10 +283,11 @@ class Bank_Card : DialogFragment() {
                 .document("User_Data")
                 .collection("BankCard")
                 .add(card)
-                .addOnSuccessListener {documentref->
-                    val newdocid=documentref.id
-                    card.id=newdocid
-                    Toast.makeText(requireContext(),"Bank Card Details added successfully",Toast.LENGTH_SHORT).show()
+                .addOnSuccessListener {documentRef->
+                    val newDocId = documentRef.id
+                    card.id = newDocId
+                    documentRef.update("uid", newDocId)
+
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(requireContext(),"Something went wrong ${e.message}",Toast.LENGTH_SHORT).show()

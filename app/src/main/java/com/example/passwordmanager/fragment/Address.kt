@@ -105,10 +105,11 @@ class Address : DialogFragment() {
             .document("User_Data")
             .collection("Address")
             .add(address_data)
-            .addOnSuccessListener {documentref->
-                val newdocid=documentref.id
-                address_data.uid=newdocid
-                Toast.makeText(requireContext(),"Address Details added successfully", Toast.LENGTH_SHORT).show()
+            .addOnSuccessListener {documentRef->
+                val newDocId = documentRef.id
+                address_data.uid = newDocId
+                documentRef.update("uid", newDocId)
+
             }
             .addOnFailureListener { e ->
                 Toast.makeText(requireContext(),"Something went wrong ${e.message}", Toast.LENGTH_SHORT).show()

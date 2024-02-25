@@ -58,6 +58,8 @@ dependencies {
     //Card Scanning
     implementation ("androidx.camera:camera-core:1.3.0-beta01")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("ai.cardscan:insurance-cardscan:0.2.8")
+//    implementation ("ccom.github.barteksc:android-pdf-viewer:2.8.2")
 //    implementation ("androidx.camera:camera-camera2:1.3.0-beta01")
 //    implementation ("androidx.camera:camera-lifecycle:1.3.0-beta01")
 //    implementation ("androidx.camera:camera-view:1.0.0-alpha14")

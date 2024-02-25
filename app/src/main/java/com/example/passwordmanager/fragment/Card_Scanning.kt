@@ -1,8 +1,13 @@
 package com.example.passwordmanager.fragment
 
+import ai.cardscan.insurance.CardScanActivity
+import ai.cardscan.insurance.CardScanActivityResult
+import ai.cardscan.insurance.CardScanActivityResultHandler
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.OptIn
 import androidx.camera.core.CameraProvider
 import androidx.camera.core.CameraSelector
@@ -41,8 +47,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class Card_Scanning : DialogFragment() {
+class Card_Scanning : DialogFragment(), CardScanActivityResultHandler {
     private val CAMERA_PERMISSION = 7762
+    lateinit var cardScanResultLauncher : ActivityResultLauncher<Intent>
     private lateinit var rootLayout: LinearLayout
     private lateinit var previewView: PreviewView
     private lateinit var scanButton: Button
@@ -90,75 +97,28 @@ class Card_Scanning : DialogFragment() {
             it.window?.attributes?.windowAnimations = R.style.AppTheme_Slide
         }
     }
-    val executor: Executor
-        get() = ContextCompat.getMainExecutor(requireContext())
-    @OptIn(ExperimentalGetImage::class)
-    private fun bindUseCases(cameraProvider: ProcessCameraProvider) {
-        val preview = buildPreview()
-        val takePicture = buildTakePicture()
-        val cameraSelector = buildCameraSelector()
 
-        cameraProvider.bindToLifecycle(this, cameraSelector, preview, takePicture)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         scanButton.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
-                val imageProxy = takePicture.takePicture(executor)
-                val cardDetails = useCase(imageProxy.image!!, imageProxy.imageInfo.rotationDegrees)
-                bindCardDetails(cardDetails)
-            }
+
         }
-
     }
-
-    private fun buildPreview(): Preview = Preview.Builder()
-        .build()
-        .apply {
-            setSurfaceProvider(previewView.surfaceProvider)
-        }
-
-    private fun buildCameraSelector(): CameraSelector = CameraSelector.Builder()
-        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-        .build()
-
-    private fun buildTakePicture(): ImageCapture = ImageCapture.Builder()
-        .setTargetRotation(previewView.display.rotation)
-        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-        .build()
-
-    @SuppressLint("SetTextI18n")
-    private fun bindCardDetails(card: CardDetails) {
-        ownerTextView.text = card.owner
-        numberTextView.text = card.number
-        dateTextView.text = "${card.expirationMonth}/${card.expirationYear}"
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_PERMISSION && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            GlobalScope.launch(Dispatchers.IO) {
-                try {
-                    val cameraProvider = getCameraProvider()
-                    bindUseCases(cameraProvider!!)
-                } catch (e: Exception) {
-                    // Handle exceptions
-                    e.printStackTrace()
-                }
-            }
+//    private fun startCardScanActivity() {
+//        val intent = Intent(requireContext(), CardScanActivity::class.java)
+//        startActivityForResult(intent, REQUEST_CARD_SCAN)
+//    }
+//
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+//            val cardResult = data?.getSerializableExtra(CardScanActivity.CARD_RESULT_EXTRA) as? CardScanActivityResult
+//            cardResult?.let { scanSuccess(it) }
         }
     }
 
-    private suspend fun getCameraProvider(): ProcessCameraProvider =
-        suspendCancellableCoroutine { continuation ->
-            ProcessCameraProvider.getInstance(requireContext()).apply {
-                addListener(Runnable {
-                    continuation.resume(get())
-                }, ContextCompat.getMainExecutor(requireContext()))
-            }
-        }
+    override fun scanSuccess(card: CardScanActivityResult) {
+
+    }
 
 }

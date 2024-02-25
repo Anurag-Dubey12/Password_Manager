@@ -95,10 +95,11 @@ class Note : DialogFragment() {
                 .document("User_Data")
                 .collection("Notes")
                 .add(note)
-                .addOnSuccessListener {docref->
-                    val newdocid=docref.id
-                    note.uid=newdocid
-//                    Toast.makeText(requireContext(),"Notes Details added successfully", Toast.LENGTH_SHORT).show()
+                .addOnSuccessListener {documentRef->
+                    val newDocId = documentRef.id
+                    note.uid = newDocId
+                    documentRef.update("uid", newDocId)
+
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(requireContext(),"Something went wrong ${e.message}",Toast.LENGTH_SHORT).show()

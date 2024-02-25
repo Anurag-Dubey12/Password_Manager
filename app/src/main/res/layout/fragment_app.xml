@@ -35,6 +35,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="@dimen/_300sdp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#10ED00"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColorHint="@color/black"

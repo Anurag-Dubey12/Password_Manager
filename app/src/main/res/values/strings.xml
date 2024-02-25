@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Password Manager</string>
+    <string name="app_name">PassGuard</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signup_now">
@@ -13,7 +13,7 @@ Or login with
 Login Now
 </string>
     <string name="don_t_have_account">Don\u2019t have an account ?</string>
-    <string name="SafeSwift">SafeSwift
+    <string name="PassGuard">PassGuard
 </string>
     <string name="lets_start">Securely manage your passwords with ease</string>
 

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.passwordmanager.R
 import com.example.passwordmanager.fragment.Document
 import com.example.passwordmanager.fragment.Note
+import com.example.passwordmanager.fragment.PhotoCapture
 import com.google.android.material.appbar.MaterialToolbar
 
 class AddPassword : AppCompatActivity() {
@@ -67,6 +68,9 @@ class AddPassword : AppCompatActivity() {
         }
         documentLayout.setOnClickListener {
             Document().display(supportFragmentManager)
+        }
+        takeAPhotoLayout.setOnClickListener {
+            PhotoCapture().display(supportFragmentManager)
         }
         accountLayout.setOnClickListener {
             if(accountOptionsLayout.visibility == View.GONE) {

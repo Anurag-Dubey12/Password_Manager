@@ -6,9 +6,13 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.pdf.PdfRenderer
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +37,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
+import java.io.IOException
 import java.io.InputStream
 import java.util.Date
 
@@ -41,6 +46,7 @@ class Document : DialogFragment() {
     private lateinit var selected_img:ImageView
     private lateinit var docname:TextInputEditText
     private lateinit var submitdoc:MaterialButton
+    private lateinit var ImageFileName:TextView
     private lateinit var doc_comment:TextInputEditText
     private lateinit var byteArrayvalue: ByteArray
     private val uid=FirebaseAuth.getInstance().currentUser?.uid
@@ -63,6 +69,7 @@ class Document : DialogFragment() {
         toolbar=view.findViewById(R.id.appBarLayout)
         docname=view.findViewById(R.id.Doc_file_Name)
         submitdoc=view.findViewById(R.id.submitdoc)
+        ImageFileName=view.findViewById(R.id.filename)
         doc_comment=view.findViewById(R.id.doc_comment)
         selected_img=view.findViewById(R.id.selected_image)
         return view
@@ -139,6 +146,8 @@ class Document : DialogFragment() {
                     inputStream?.readBytes()?.let { byteArray ->
                         selected_img.setImageURI(uri)
                         byteArrayvalue=byteArray
+                        val fileName = getFileName(uri)
+                        ImageFileName.setText("FileName: $fileName")
                         Log.d("byte","The byte array value is $byteArrayvalue")
                     }
                 }
@@ -147,6 +156,7 @@ class Document : DialogFragment() {
                 dismiss()
             }
         }
+
     fun uploadFile(byteArray: ByteArray, fileName: String, comment: String,uid:String) {
         val storageRef = storage.reference
         val storageRef2 = storageRef.child("files/$fileName")
@@ -164,8 +174,20 @@ class Document : DialogFragment() {
                 Toast.makeText(requireContext(), "Failed to upload file", Toast.LENGTH_SHORT).show()
             }
             .addOnCompleteListener {
-                // Handle completion if needed
             }
-
     }
+    @SuppressLint("Range")
+    private fun getFileName(uri: Uri): String? {
+        var filename: String? = null
+        if (uri.scheme == "content") {
+            val cursor = requireActivity().contentResolver.query(uri, null, null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    filename = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            }
+        }
+        return filename
+    }
+
 }
